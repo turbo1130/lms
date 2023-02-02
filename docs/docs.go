@@ -20,7 +20,7 @@ var doc = `{
         "title": "{{.Title}}",
         "contact": {
             "name": "VinceZ",
-            "url": "https://gitee.com/turbo30/library-management-sys_go",
+            "url": "https://gitee.com/turbo30/lms",
             "email": "turbochang@foxmail.com"
         },
         "license": {

@@ -10,7 +10,7 @@ import (
 // @version 1.0
 // @description 图书借阅系统接口
 // @contact.name VinceZ
-// @contact.url https://gitee.com/turbo30/library-management-sys_go
+// @contact.url https://gitee.com/turbo30/lms
 // @contact.email turbochang@foxmail.com
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
