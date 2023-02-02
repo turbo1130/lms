@@ -21,9 +21,12 @@ LABEL MAINTAINER="turbochang@126.com"
 
 ARG LMS_DIR=/go/src/github.com/lms
 
-# 设置时区为上海
-RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
-RUN echo 'Asia/Shanghai' >/etc/timezone
+# 设置时区为上海：由于alpine的时间标准时区，所以这里要下载时间文件更新为上海时区，为了精简然后再把tzdata删除即可。
+RUN apk --update add tzdata && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    echo "Asia/Shanghai" > /etc/timezone && \
+    apk del tzdata && \
+    rm -rf /var/cache/apk/*
 
 # 设置编码
 ENV LANG C.UTF-8
