@@ -1,3 +1,4 @@
+basePath: /
 definitions:
   model.Book:
     properties:
@@ -162,7 +163,6 @@ definitions:
         description: 信息
         type: string
     type: object
-host: 127.0.0.1:8081
 info:
   contact:
     email: turbochang@foxmail.com

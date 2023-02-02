@@ -14,7 +14,7 @@ import (
 // @contact.email turbochang@foxmail.com
 // @license.name Apache 2.0
 // @license.url http://www.apache.org/licenses/LICENSE-2.0.html
-// @host 127.0.0.1:8081
+// @BasePath /
 func main() {
 	core.Viper() // 启动环境在 constant/configConstant.go 中ENV配置
 
