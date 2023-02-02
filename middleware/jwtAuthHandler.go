@@ -15,9 +15,6 @@ import (
 
 func JwtAuthHandler() gin.HandlerFunc {
 	return func(ctx *gin.Context) {
-		/*		if ctx.FullPath() == global.LMS_CONFIG.System.RouterPrefix+"/login" {
-				ctx.Next()
-			} else {*/
 		token := ctx.GetHeader(constant.HeaderAuthorization)
 		if utils.IsEmpty(token) {
 			response.FailWithMessage("您无权访问，请登录！", ctx)
@@ -50,6 +47,5 @@ func JwtAuthHandler() gin.HandlerFunc {
 			ctx.JSON(http.StatusForbidden, "Token信息被篡改，您无权访问，请登录！")
 			ctx.Abort()
 		}
-		//}
 	}
 }

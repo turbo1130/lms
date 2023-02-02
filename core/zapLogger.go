@@ -3,6 +3,7 @@ package core
 import (
 	"LibraryManagementSys/constant"
 	"LibraryManagementSys/global"
+	"bytes"
 	rotatelogs "github.com/lestrrat-go/file-rotatelogs"
 	"go.uber.org/zap"
 	"go.uber.org/zap/zapcore"
@@ -50,7 +51,14 @@ func getEncoder() zapcore.Encoder {
 // getLoggerWriter
 // 按时间切割
 func getLoggerWriter(level string) zapcore.WriteSyncer {
-	logs, _ := rotatelogs.New(global.LMS_CONFIG.Zap.Path+constant.FileFix+global.LMS_CONFIG.System.Name+constant.DASH+level+"-%Y%m%d.log", // 存储位置
+	buffer := bytes.Buffer{} // 用bytes.Buffer比直接使用+运算拼接字符串更加高效，可以通过benchmark测试
+	buffer.WriteString(global.LMS_CONFIG.Zap.Path)
+	buffer.WriteString(constant.FileFix)
+	buffer.WriteString(global.LMS_CONFIG.System.Name)
+	buffer.WriteString(constant.DASH)
+	buffer.WriteString(level)
+	buffer.WriteString("-%Y%m%d.log")
+	logs, _ := rotatelogs.New(buffer.String(), // 存储位置
 		rotatelogs.WithMaxAge(30*24*time.Hour),    // 最长保存30天
 		rotatelogs.WithRotationTime(time.Hour*24), // 24小时切割一次
 	)
