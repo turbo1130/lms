@@ -1,0 +1,839 @@
+definitions:
+  model.Book:
+    properties:
+      author:
+        description: 作者
+        type: string
+      createdAt:
+        description: 创建时间
+        type: string
+      deletedAt:
+        description: 删除时间
+        type: string
+      id:
+        description: ID
+        type: string
+      isbn:
+        description: ISBN
+        type: string
+      jcs:
+        description: 借出数
+        type: integer
+      name:
+        description: 书名
+        type: string
+      num:
+        description: 书号
+        type: string
+      price:
+        description: 价格
+        type: string
+      publisher:
+        description: 出版社
+        type: string
+      stock:
+        description: 库存
+        type: integer
+      updatedAt:
+        description: 更新时间
+        type: string
+    type: object
+  model.User:
+    properties:
+      createdAt:
+        description: 创建时间
+        type: string
+      deletedAt:
+        description: 删除时间
+        type: string
+      email:
+        type: string
+      id:
+        description: ID
+        type: string
+      loginTime:
+        type: string
+      nickName:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      roleEn:
+        type: string
+      roleId:
+        type: string
+      updatedAt:
+        description: 更新时间
+        type: string
+      username:
+        type: string
+    type: object
+  request.BorrowBook:
+    properties:
+      bookId:
+        description: 书ID
+        type: string
+      id:
+        description: 借阅ID
+        type: string
+      jydjr:
+        description: 借阅登记人
+        type: string
+      jyr:
+        description: 借阅人
+        type: string
+      jysj:
+        description: 借阅时间
+        type: string
+      xh:
+        description: 学号
+        type: string
+    type: object
+  request.LoginUser:
+    properties:
+      loginTime:
+        description: 登陆时间
+        type: string
+      password:
+        description: 密码
+        type: string
+      username:
+        description: 用户名
+        type: string
+    type: object
+  request.ReturnBook:
+    properties:
+      bookId:
+        description: 还书ID
+        type: string
+      hsdjr:
+        description: 还书登记人
+        type: string
+      hssj:
+        description: 还书时间
+        type: string
+      id:
+        description: 借阅ID
+        type: string
+    type: object
+  request.UserInfo:
+    properties:
+      changeTime:
+        description: 更改时间
+        type: string
+      email:
+        description: 邮箱
+        type: string
+      id:
+        description: ID
+        type: string
+      nickName:
+        description: 昵称
+        type: string
+      password:
+        description: 密码
+        type: string
+      phone:
+        description: 电话
+        type: string
+    type: object
+  request.UserRole:
+    properties:
+      id:
+        description: 用户ID
+        type: string
+      roleEn:
+        description: 角色标示
+        type: string
+      roleId:
+        description: 角色ID
+        type: string
+    type: object
+  response.Response:
+    properties:
+      code:
+        description: 响应码
+        type: integer
+      data:
+        description: 返回数据
+        type: object
+      msg:
+        description: 信息
+        type: string
+    type: object
+host: 127.0.0.1:8081
+info:
+  contact:
+    email: turbochang@foxmail.com
+    name: VinceZ
+    url: https://gitee.com/turbo30/library-management-sys_go
+  description: 图书借阅系统接口
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  title: LMS
+  version: "1.0"
+paths:
+  /book:
+    delete:
+      description: 删除图书
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 图书
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除图书
+      tags:
+      - 图书管理
+    post:
+      description: 添加图书
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 图书
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 添加图书
+      tags:
+      - 图书管理
+    put:
+      description: 更新图书
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 图书
+        in: body
+        name: book
+        required: true
+        schema:
+          $ref: '#/definitions/model.Book'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新图书
+      tags:
+      - 图书管理
+  /book/list/{page}:
+    get:
+      description: 获取图书列表，每次获取11条，分页查询
+      parameters:
+      - description: 页码
+        in: path
+        name: page
+        required: true
+        type: string
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 分页查询图书列表
+      tags:
+      - 图书管理
+  /book/list/publisher:
+    get:
+      description: 获取所有出版社名称
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取所有出版社名称
+      tags:
+      - 图书管理
+  /book/list/search/{page}:
+    get:
+      description: 根据条件查询图书列表信息
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码
+        in: path
+        name: page
+        required: true
+        type: string
+      - description: 书号
+        in: query
+        name: num
+        type: string
+      - description: 书名
+        in: query
+        name: name
+        type: string
+      - description: 作者
+        in: query
+        name: author
+        type: string
+      - description: isbn
+        in: query
+        name: isbn
+        type: string
+      - description: 出版社
+        in: query
+        name: publisher
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 根据条件查询图书列表信息
+      tags:
+      - 图书管理
+  /login:
+    post:
+      description: 登录
+      parameters:
+      - description: 用户登录名、密码
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/request.LoginUser'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 登录
+      tags:
+      - 系统
+  /logout:
+    post:
+      description: 退出登录
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 退出登录
+      tags:
+      - 系统
+  /lr:
+    delete:
+      description: 删除借阅记录
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 借阅记录ID
+        in: body
+        name: borrowBook
+        required: true
+        schema:
+          $ref: '#/definitions/request.BorrowBook'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 删除借阅记录
+      tags:
+      - 借还管理
+    post:
+      description: 添加借阅记录
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 借阅信息
+        in: body
+        name: borrowBook
+        required: true
+        schema:
+          $ref: '#/definitions/request.BorrowBook'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 添加借阅记录
+      tags:
+      - 借还管理
+    put:
+      description: 更新借阅记录
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 借阅信息
+        in: body
+        name: lendingRecord
+        required: true
+        schema:
+          $ref: '#/definitions/request.BorrowBook'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新借阅记录
+      tags:
+      - 借还管理
+  /lr/hs:
+    put:
+      description: 还书
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 还书信息
+        in: body
+        name: returnBook
+        required: true
+        schema:
+          $ref: '#/definitions/request.ReturnBook'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 还书
+      tags:
+      - 借还管理
+  /lr/list/{page}:
+    get:
+      description: 获取借阅信息列表
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 页码
+        in: path
+        name: page
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取借阅信息列表
+      tags:
+      - 借还管理
+  /lr/list/search/{page}:
+    get:
+      description: 根据条件查询
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 学号
+        in: query
+        name: xh
+        type: string
+      - description: 借阅人
+        in: query
+        name: jyr
+        type: string
+      - description: 借阅时间 yyyy-MM-dd HH:mm:ss
+        in: query
+        name: jysj
+        type: string
+      - description: 书名
+        in: query
+        name: bookName
+        type: string
+      - description: ISBN
+        in: query
+        name: isbn
+        type: string
+      - description: 页码
+        in: path
+        name: page
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 根据条件查询
+      tags:
+      - 借还管理
+  /register:
+    post:
+      description: 账户注册
+      parameters:
+      - description: 用户
+        in: body
+        name: user
+        required: true
+        schema:
+          $ref: '#/definitions/model.User'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 账户注册
+      tags:
+      - 系统
+  /role/list:
+    get:
+      description: 获取角色信息列表
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 获取角色信息列表
+      tags:
+      - 角色
+  /role/ur:
+    put:
+      description: 更改用户角色
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 角色信息
+        in: body
+        name: role
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserRole'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更改用户角色
+      tags:
+      - 角色
+  /user/self:
+    get:
+      description: 查询用户信息
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户ID
+        in: query
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 查询用户信息
+      tags:
+      - 用户管理
+    post:
+      description: 更改密码
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户信息：只有id、password、changeTime字段有效
+        in: body
+        name: userInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更改密码
+      tags:
+      - 用户管理
+    put:
+      description: 更新用户信息
+      parameters:
+      - description: Authorization
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: 用户信息：password、changeTime字段无效
+        in: body
+        name: userInfo
+        required: true
+        schema:
+          $ref: '#/definitions/request.UserInfo'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/response.Response'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/response.Response'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/response.Response'
+      summary: 更新用户信息
+      tags:
+      - 用户管理
+swagger: "2.0"

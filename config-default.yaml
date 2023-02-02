@@ -1,0 +1,54 @@
+# 环境启动读取优先级：传参 > 命令行 > 环境变量 > Env配置
+# ENV配置在 constant/configConstant.go 中
+
+# system configuration
+system:
+  name: "LMS"
+  version: "v1.0"
+  db-type: mysql
+  router-prefix: "/api/v1"
+  transfer-pw-decode: false # http传输的登录密码是否需要解密，默认 false
+  # 如果transfer-pw-decode为true登录账户密码默认为 admin MTI1zNDUp2oCiA=
+
+gin:
+  port: 8081
+
+# jwt configuration
+jwt:
+  signing-key: lms202301vinceZ
+  expires-time: 1d
+  buffer-time: 1d
+  issuer: LMS
+
+# zap logger configuration
+# zap引入file-rotatelogs按天切割日志，需注意：按时间切割效率与按文件大小切割相比低且不能保证日志数据不被破坏
+zap:
+  level: info # debug info warn error dpanic panic fatal 默认debug
+  gorm-level: info # info warn error silent 默认 info
+  format: console # 可选 console 和 json，默认 console
+  path: "./logFile"
+  prefix: "[LMS] "
+  log-in-console: true
+
+# redis configuration
+redis:
+  db: 0
+  addr: "127.0.0.1:6379"
+  password: "123456"
+
+# mysql connect configuration
+mysql:
+  ip: "127.0.0.1"
+  port: 3306
+  db-name: "lms_db"
+  username: "root"
+  password: "123456"
+  charset: "utf8mb4"
+  max-idle-conns: 10
+  max-open-conns: 100
+  log-mode: ""
+  log-zap: false
+
+# excel configuration
+excel:
+  dir: ./source/excel/
