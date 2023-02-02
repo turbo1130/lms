@@ -1,4 +1,5 @@
 # 环境启动读取优先级：传参 > 命令行 > 环境变量 > Env配置
+# 命令行启动指定配置文件：./lms_server -conf config-docker.yaml
 # ENV配置在 constant/configConstant.go 中
 
 # system configuration
