@@ -1,7 +1,7 @@
 package constant
 
 const (
-	// 环境启动读取优先级：传参 > 命令行 > 环境变量 > Env配置
+	// 环境启动读取优先级：传参 > 启动参数 > 环境变量 > Env配置
 	ConfigEnv         = "LMS_CONFIG"
 	ENV               = "dev"
 	DEV               = "dev"
