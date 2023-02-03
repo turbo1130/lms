@@ -399,6 +399,7 @@ LMS API 接口文档
 - [Swagger 文档](https://www.topgoer.com/%E5%85%B6%E4%BB%96/Swagger.html)
 - [在Go语言项目中使用Zap日志库（李周文的博客）](https://www.liwenzhou.com/posts/Go/zap/)
 - [Viper # GitHub](https://github.com/spf13/viper)
+- [本人的GO学习笔记](https://gitee.com/turbo30/study-notes/tree/master/Go%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0)
 
 ---
 
