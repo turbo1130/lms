@@ -26,10 +26,6 @@
 
 ## 系统架构
 
-
-
-
-
 ### 系统架构图
 
 ![系统架构图](https://gitee.com/turbo30/study_pic/raw/master/pictureForLms/%E7%B3%BB%E7%BB%9F%E6%9E%B6%E6%9E%84.png)
@@ -229,7 +225,7 @@ LMS API 接口文档
 >
 >   **解密逻辑：** 后台更具loginTime时间进行计算。计算规则为：小时%10取余，分钟%100取余，秒%10取余，获取的数进行从小到大排序，将其看成索引，将password对应索引位置的字符元素删除之后形成的字符串就是正确的base64码，然后进行base解码。
 >
->   **tips： ** 本加密解密逻辑非常简单，不适合正式场景的使用。需要自行制定修改前后端传输密码的加密解密逻辑。
+>   **tips：** 本加密解密逻辑非常简单，不适合正式场景的使用。需要自行制定修改前后端传输密码的加密解密逻辑。
 
 
 
@@ -395,9 +391,14 @@ LMS API 接口文档
 
 ---
 
-学习资料：
+学习资料 & 相关文档：
 
 - [gin-vue-admin # 不错的模版框架](https://github.com/flipped-aurora/gin-vue-admin)
+- [Gin 官方文档](https://gin-gonic.com/zh-cn/docs/introduction/)
+- [Gorm 官方文档](https://gorm.io/zh_CN/docs/index.html)
+- [Swagger 文档](https://www.topgoer.com/%E5%85%B6%E4%BB%96/Swagger.html)
+- [在Go语言项目中使用Zap日志库（李周文的博客）](https://www.liwenzhou.com/posts/Go/zap/)
+- [Viper # GitHub](https://github.com/spf13/viper)
 
 ---
 
