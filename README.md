@@ -1,8 +1,22 @@
+<div align=center>
+<img src="https://gitee.com/turbo30/study_pic/raw/master/pictureForLms/image-20230203225420916.png" width=400" height="200"/>
+</div>
+<div align=center>
+<img src="https://img.shields.io/static/v1?logo=Gitee&label=build&message=passing&color=lightBlue">
+<img src="https://img.shields.io/badge/golang-1.19-blue"/>
+<img src="https://img.shields.io/badge/gin-1.8.2-lightBlue"/>
+<img src="https://img.shields.io/badge/gorm-1.24.3-ff69b4"/>
+<img src="https://img.shields.io/static/v1?logo=Apache&label=license&message=Apache 2.0&color=orange">
+</div>
+
+
+
+
 # 基于Gin + Gorm - LMS图书借阅后端系统
 
 基于Gin + Gorm 后端的图书借阅系统。Restful风格。
 
-使用到了`swagger`，`zap`，`viper`，`gin`，`gorm`。
+使用到了`gin`，`gorm`，`swagger`，`zap`，`viper`。
 
 集成`jwt鉴权`，`Redis缓存`，`MySql`
 
@@ -10,9 +24,9 @@
 
 该项目是一个基础项目，可以自行扩展更多功能。
 
-
-
 ## 系统架构
+
+
 
 
 
@@ -197,7 +211,7 @@ LMS API 接口文档
 | router-prefix      | api访问的前缀。                                              |
 | transfer-pw-decode | http传输的登录密码是否需要解密。默认：false（即传入系统的密码是明文） |
 
-> **:tipping_hand_man: TIPS:**
+> **IPS:**
 >
 > - **transfer-pw-decode**
 >
@@ -213,9 +227,9 @@ LMS API 接口文档
 >
 >   http传入系统的加密解密方式逻辑可参考：`utils/hashUtils.go:PasswordDecode()`
 >
->   **解密逻辑：**后台更具loginTime时间进行计算。计算规则为：小时%10取余，分钟%100取余，秒%10取余，获取的数进行从小到大排序，将其看成索引，将password对应索引位置的字符元素删除之后形成的字符串就是正确的base64码，然后进行base解码。
+>   **解密逻辑：** 后台更具loginTime时间进行计算。计算规则为：小时%10取余，分钟%100取余，秒%10取余，获取的数进行从小到大排序，将其看成索引，将password对应索引位置的字符元素删除之后形成的字符串就是正确的base64码，然后进行base解码。
 >
->   **tips：**本加密解密逻辑非常简单，不适合正式场景的使用。需要自行制定修改前后端传输密码的加密解密逻辑。
+>   **tips： ** 本加密解密逻辑非常简单，不适合正式场景的使用。需要自行制定修改前后端传输密码的加密解密逻辑。
 
 
 
@@ -249,7 +263,7 @@ LMS API 接口文档
 | prefix         | 日志打印前缀。                                               |
 | log-in-console | 日志是否打印到console                                        |
 
-> **:tipping_hand_man: TIPS:**
+> **TIPS:**
 >
 > zap引入`file-rotatelogs`按天切割日志，需**注意**：按时间切割效率与按文件大小切割相比低且不能保证日志数据不被破坏
 
@@ -296,7 +310,7 @@ LMS API 接口文档
 
 本步骤使用环境：CENTOS 8.0
 
-> **:tipping_hand_man: TIPS**：项目克隆下来之后建议先修改`config-docker.yaml`文件的配置信息，若不修改镜像制作好之后启动由于`config-docker.yaml`配置错误会报错启动不起来，后续还是要在数据卷中去修改`config-docker.yaml`。
+> **TIPS**：项目克隆下来之后建议先修改`config-docker.yaml`文件的配置信息，若不修改镜像制作好之后启动由于`config-docker.yaml`配置错误会报错启动不起来，后续还是要在数据卷中去修改`config-docker.yaml`。
 
 
 
@@ -330,7 +344,7 @@ LMS API 接口文档
 
   ![image-20230203181916344](https://gitee.com/turbo30/study_pic/raw/master/pictureForLms/image-20230203181916344.png)
 
-  > **:tipping_hand_man: TIPS**：如果没有创建数据卷，那么会在docker目录下自动生成绑定数据卷。一般自动生成的数据卷挂载路径为：`/var/lib/docker/volumes/` 该目录下
+  > **TIPS** ：如果没有创建数据卷，那么会在docker目录下自动生成绑定数据卷。一般自动生成的数据卷挂载路径为：`/var/lib/docker/volumes/` 该目录下
 
 - **启动lms镜像**
 
@@ -338,7 +352,7 @@ LMS API 接口文档
   docker run -d -p 8888:8888 -v lms_volume:/go/src/github.com/lms --name lms_server [image id]
   ```
 
-  > **:tipping_hand_man: TIPS**：若没有创建数据卷，则启动命令为：
+  > **TIPS**：若没有创建数据卷，则启动命令为：
   >
   > ```bash
   > docker run -d -p 8888:8888 --name lms_server [image id]
@@ -373,7 +387,7 @@ LMS API 接口文档
 
 ### 其他问题
 
-:question: 如果启动之后访问不了，建议查看防火墙是否放开8888端口。
+**？** 如果启动之后访问不了，建议查看防火墙是否放开8888端口。
 
 
 
