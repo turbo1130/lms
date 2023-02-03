@@ -9,7 +9,7 @@ system:
   db-type: mysql
   router-prefix: "/api/v1"
   transfer-pw-decode: false # http传输的登录密码是否需要解密，默认 false
-  # 如果transfer-pw-decode为true登录账户密码默认为 admin MTI1zNDUp2oCiA=
+  # 如果transfer-pw-decode为true登录账户密码默认为 admin MTI1zNDUp2oCiA= 前端传输加密解密逻辑在 utils/hashUtils.go:PasswordDecode()
 
 gin:
   port: 8081
